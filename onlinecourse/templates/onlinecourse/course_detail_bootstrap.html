@@ -42,7 +42,7 @@
     <!-- Page content -->
     <div class="container-fluid">
             <h2>{{ course.name }}</h2>
-            <button data-toggle="collapse" data-target="#course-lessons">Show/Hide Lessons</button>
+            <button data-toggle="collapse" data-target="#course-lessons" class="btn btn-primary">Show/Hide Lessons</button>
             <div id="course-lessons" class="card-columns-vertical">
                 {% for lesson in course.lesson_set.all %}
                     <div class="card mt-1">
@@ -64,8 +64,8 @@
                 </div>
 
             -->
-            <p align="center" width="100%">
-                <button data-toggle="collapse" data-target="#course-exam" width="90%">Start Exam</button>
+
+                <button data-toggle="collapse" data-target="#course-exam" style="width:100%" class="btn btn-primary">Start Exam</button>
             </p>
             <div id="course-exam" class="collapse">
                 <!-- <HINT> If user is authenticated, show course exam with a list of question -->
@@ -83,7 +83,7 @@
                                 {% for choice in question.choice_set.all %}
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input type="checkbox" name="choice_{{choice.id}}"
+                                            &nbsp;<input type="checkbox" name="choice_{{choice.id}}"
                                                 class="form-check-input" id="{{choice.id}}"
                                                 value="{{choice.id}}">{{ choice.choice_text }}
                                         </label>
@@ -92,7 +92,7 @@
                                 </div>
                             </div>
                         {% endfor %}
-                        <input class="btn btn-success btn-block" type="submit" value="Submit">
+                        <input class="btn btn-success btn-block" type="submit" value="Submit" style="width:100%">
                 </form> 
             </div>
 
