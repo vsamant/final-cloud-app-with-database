@@ -74,7 +74,7 @@
                 <!-- <HINT> Create a form to collect the selected choices for all questions -->
                 <!-- <HINT> For each question choice, you may create a checkbox input like -->
                 <!-- A choice submission form example -->
-                <form id="questionform" action="point to a submit view" method="post">
+                <form id="questionform" action="{% url 'onlinecourse:submit' course.id %}" method="post">
                         {% for question in course.question_set.all %}
                             <div class="card mt-1">
                                 <div class="card-header"><h5>{{ question.question_text}}</h5></div>
