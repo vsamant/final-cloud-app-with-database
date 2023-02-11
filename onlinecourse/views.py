@@ -116,10 +116,10 @@ def submit(request, course_id):
     enrollment = Enrollment.objects.get(user=user, course=course)
     submission = Submission.objects.create(enrollment=enrollment)
     choices = extract_answers(request)
+    print("{} choice type {} {}".format(submission.id, type(choices), choices))
     submission.choices.set(choices) 
-    #submission.save()
-
-    print("===before exception===")
+    # do we need an explicit save
+    submission.save()
 
     return HttpResponseRedirect(reverse(viewname='onlinecourse:show_exam_result', args=(course_id, submission.id,)))
 
@@ -131,7 +131,7 @@ def extract_answers(request):
             value = request.POST[key]
             choice_id = int(value)
             #submitted_anwsers.append(choice_id) need to return objects instead of ids
-            submitted_answers.append(Choice.objects.get(id=choice_id))
+            submitted_anwsers.append(Choice.objects.get(id=choice_id))
     return submitted_anwsers
 
 
@@ -142,14 +142,26 @@ def extract_answers(request):
         # For each selected choice, check if it is a correct answer or not
         # Calculate the total score
 def show_exam_result(request, course_id, submission_id):
-    print("=== course_id {} ====".format(course_id))
-    course = get_object_or_404(Course, course_id)
-    submission = get_object_or_404(Submission, submission_id)
+    course = get_object_or_404(Course, pk=course_id)
+    submission = get_object_or_404(Submission, pk=submission_id)
 
     print("===here====")
 
-    #TODO temporary redirect for compile
-    return redirect('onlinecourse:index')
+    choice_ids = submission.choices.values_list('id', flat=True)
+    total_score = 0
+    #questions = course.question_set.all # cannot iterate on this
+    questions = Question.objects.filter(course=course.id)
+    #print("-- {} --".format(questions))
+    for question in questions:
+        if question.is_get_score(choice_ids):
+            total_score = total_score + question.grade
+
+    context = {}        
+    context['course'] = course
+    context['grade'] = total_score
+    context['choice_ids'] = choice_ids
+
+    return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
 
 
 

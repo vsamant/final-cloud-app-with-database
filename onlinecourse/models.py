@@ -116,11 +116,20 @@ class Question(models.Model):
 
     # <HINT> A sample model method to calculate if learner get the score of the question
     def is_get_score(self, selected_ids):
+        print("{} {} {}".format(self.id, selected_ids, self.choice_set.filter(is_correct=True)))
         all_answers = self.choice_set.filter(is_correct=True).count()
         selected_correct = self.choice_set.filter(is_correct=True, id__in=selected_ids).count()
+
+        # bug if incorrect answer is selected along with correct one, this still returns true
+        selected_incorrect = self.choice_set.filter(is_correct=False, id__in=selected_ids).count()
+        if selected_incorrect > 0:
+            print("Incorrect selected")
+            return False
         if all_answers == selected_correct:
+            print("true")
             return True
         else:
+            print("false")
             return False
 
 #  <HINT> Create a Choice Model with:
@@ -134,6 +143,8 @@ class Choice(models.Model):
     choice_text = models.CharField(max_length=30, default="choice_text")
     is_correct = models.BooleanField(default=False)
 
+    def __str__(self):
+        return "Id: {}, correct:{}".format( self.id, self.is_correct)
 
 
 # <HINT> The submission model
