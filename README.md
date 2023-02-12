@@ -16,9 +16,11 @@ For your reference, we have prepared the ER diagram design for the new assesemen
 
 
 **Helpful Shortcuts**
-alias pyreq='python3 -m pip install -U -r requirements.txt'
-alias pymm='python3 manage.py makemigrations'
-alias pymig='python3 manage.py migrate'
-alias pysu='python3 manage.py createsuperuser'
-alias pyrun='python3 manage.py runserver'
-alias pyinit='python3 write.py'
+```
+ alias pyreq='python3 -m pip install -U -r requirements.txt'
+ alias pymm='python3 manage.py makemigrations'
+ alias pymig='python3 manage.py migrate'
+ alias pysu='python3 manage.py createsuperuser'
+ alias pyrun='python3 manage.py runserver'
+ alias pyinit='python3 write.py'
+ ```
