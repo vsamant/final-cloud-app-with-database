@@ -13,3 +13,12 @@ An `onlinecourse` app has already been provided in this repo upon which you will
 For your reference, we have prepared the ER diagram design for the new assesement feature.
 
 ![Onlinecourse ER Diagram](https://github.com/ibm-developer-skills-network/final-cloud-app-with-database/blob/master/static/media/course_images/onlinecourse_app_er.png)
+
+
+**Helpful Shortcuts**
+alias pyreq='python3 -m pip install -U -r requirements.txt'
+alias pymm='python3 manage.py makemigrations'
+alias pymig='python3 manage.py migrate'
+alias pysu='python3 manage.py createsuperuser'
+alias pyrun='python3 manage.py runserver'
+alias pyinit='python3 write.py'
